@@ -1,5 +1,8 @@
 const express = require('express');
+require('dotenv').config();
+
 const app = express();
+const PORT = process.env.PORT;
 
 const carrosRoutes = require('./routes/carros.routes');
 
@@ -9,4 +12,4 @@ app.get('/', (req, res) => {
 
 app.use('/carros', carrosRoutes);
 
-app.listen(3000, () => console.log('Server running'));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
