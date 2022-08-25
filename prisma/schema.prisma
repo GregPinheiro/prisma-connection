@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model carros {
+  id       Int     @id @default(autoincrement())
+  nome     String  @db.VarChar(100)
+  ano      Int?
+  cor      String? @db.VarChar(100)
+  id_marca Int
+  marcas   marcas  @relation(fields: [id_marca], references: [id], onUpdate: Restrict, map: "carros_FK")
+
+  @@index([id_marca], map: "carros_FK")
+}
+
+model marcas {
+  id        Int      @id @default(autoincrement())
+  nome      String   @db.VarChar(100)
+  descricao String?  @db.VarChar(100)
+  carros    carros[]
+}
